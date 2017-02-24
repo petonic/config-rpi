@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "*** Petonic: Rebooting now"
+sudo shutdown -r now

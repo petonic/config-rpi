@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "*** Petonic: HALTing now"
+sudo shutdown now

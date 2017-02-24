@@ -1,0 +1,22 @@
+#! /bin/sh
+
+now="`date -I`"
+ldir="/home/pi/BackupFiles"
+host="`hostname`"
+
+set -x
+
+cd "$HOME"
+
+sudo tar cvvfT "$ldir/$host.Backup.$now" "$ldir/FileList"  2> "$ldir/err" | tee out
+
+status=$?
+
+set +x
+
+if [ "$status" != 0 ]; then
+  echo "ERROR RUNNING BACKUP FILES: $status"
+  cat "$ldir"/err
+  exit 2
+fi
+

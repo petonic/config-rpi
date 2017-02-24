@@ -1,0 +1,13 @@
+#! /bin/sh
+#
+
+rhost=kaypro
+rdir="/Users/petonic/RPI/BackupFiles"
+ldir="$HOME/BackupFiles"
+
+set -x
+
+cd "$ldir" || exit 9
+
+rsync -avz -P --stats * "$rhost:$rdir"
+

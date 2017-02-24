@@ -1,0 +1,8 @@
+#! /bin/sh
+
+echo "Starting NFS remote file system mounting on RPI Zeros"
+set -x
+set -e
+
+sudo /etc/init.d/rpcbind start
+sudo mount -a
