@@ -15,3 +15,11 @@ alias sm='/usr/bin/sudo -E "$HOME/bin/rmate" --no-wait'
 
 alias ls='ls -CF --color=auto'
 lsr() { ls -lt "$@" | head ; }
+
+if [[ -d ~/git/sfodemo ]]; then
+    # Supposed to be NFS Mounted
+    if [[ ! -e ~/git/sfodemo/README.md ]]; then
+        echo "### Mounting the unmounted NFSDirs"
+        ~/bin/nfs0start
+    fi
+fi
