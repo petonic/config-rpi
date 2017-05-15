@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+#
+# Tries to do mapping of local directory structure against
+# the remote NFS directory, based on a config file ".atom-nfs"
+# that lies somewhere in the path leading up to the CWD.
+#
+#
+# nfs ~/pithy/thermod.py
+""" rnfs
+
+Usage:
+    rnfs [-v] [<path>]
+
+Options:
+    -v          Verbose mode.
+    <path>      If specified, tries to resolve that path, otherwise it uses
+                the cwd.
+    -h, --help  Prints this message.
+"""
+
+CFG_NAME = '.atom-nfs'
+
+import os
+import sys
+
+verbose = False
+
+def nfs_normalize(args, cfg_name=CFG_NAME):
+    global verbose
+    if args['-v']:
+        verbose = True
+
+    path_arg = os.path.normpath(args['<path>'])
+    if path_arg == None:
+        path_arg = os.getcwd()
+
+    initial_cwd = os.getcwd()
+    fwd_stack = path_arg
+    back_stack = None
+
+    cpath = os.path.realpath(os.path.join(initial_cwd, fwd_stack))
+
+
+    while (cpath != '/'):
+        cfg_target = os.path.join(cpath, CFG_NAME)
+        if os.path.isfile(cfg_target):
+            # Found a file with the right name, now ...
+            try:
+              with open(cfg_target, "r") as file:
+                nfs_root = file.readline().rstrip()
+            except IOError as e:
+                print('{}: cannot read atom-nfs file {}:{}'.format(
+                        sys.argv[0], cfg_target, repr(e)))
+                sys.exit(2)
+            break
+        # Didn't find the cfg file, go back up a directory until we hit
+        # the root of our device.
+        (head, tail) = os.path.split(cpath)
+        cpath = head
+        if back_stack:
+            back_stack = os.path.join(tail, back_stack)
+        else:
+            back_stack = tail
+    else:
+        if args['-v']:
+            print('{}: no nfs-cfg file ({}) found along path: {}'.format(
+                    sys.argv[0], NFS_CONFIG, path_arg))
+        return None
+    if back_stack:
+        rv = os.path.normpath(os.path.join(nfs_root, back_stack))
+    else:
+        rv = os.path.normpath(nfs_root)
+
+    if verbose:
+        try:
+            with open('rnfs.log', "w") as outfile:
+                print('{}: configfile is {}/{}'.format(
+                        sys.argv[0],  nfs_root, CFG_NAME),
+                        file=outfile)
+                print('\tLocal = {}, Remote  = {}'.format(
+                        repr(path_arg), repr(rv)), file=outfile)
+        except IOError:
+            pass
+    return rv
+
+
+def main(args):
+    return nfs_normalize(args)
+
+
+
+
+
+
+
+
+
+from docopt import docopt
+
+if __name__ == '__main__':
+    args = docopt(__doc__, version='foo 1.0')
+    rv = main(args)
+    if not rv:
+        sys.exit(1)
+    print(rv)
+    sys.exit(0)
