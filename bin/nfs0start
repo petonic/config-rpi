@@ -1,6 +1,6 @@
 #! /bin/sh
 
-echo "Starting NFS remote file system mounting on RPI Zeros"
+echo "Starting NFS remote file system and mounting all on RPI"
 set -x
 set -e
 
