@@ -1,0 +1,38 @@
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[user]
+	name = "Mike Petonic"
+	email = petonic@yahoo.com
+[core]
+	editor = rmate -w
+  pager = "less -R -FX"
+
+[color]
+#  ui = auto
+
+[color "branch"]
+  current = red reverse
+  local = red bold
+  remote = green
+  upstream = red bold
+  plain = red bold
+
+[color "diff"]
+  meta = yellow bold
+  frag = blue
+  old = red black bold
+  new = green black
+  whitespace = blue reverse
+  commit = black bold
+#
+[color "status"]
+  added = magenta
+  changed = blue
+  untracked = red
+
+[push]
+	default = matching
+[merge]
+	conflictstyle = diff3
