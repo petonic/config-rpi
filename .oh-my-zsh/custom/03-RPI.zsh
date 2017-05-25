@@ -19,5 +19,4 @@ lsr() { ls -lt "$@" | head ; }
 if [ ! -d ~/git/sfodemo/README.md ]; then
         echo "### Mounting the unmounted NFSDirs"
         ~/bin/nfs0start
-    fi
 fi
