@@ -11,7 +11,7 @@ alias mw="mate -w"
 alias mq="mate -f"
 
 alias sm='/usr/bin/sudo -E "$HOME/bin/rmate" --no-wait'
-
+alias sz='sudo zsh'
 # lsr() { ls -lt "$@" | head ; }
 lsr () {
     headflag=-10
@@ -27,8 +27,3 @@ lsr () {
 
 
 alias ls='ls -CF --color=auto'
-
-if [ ! -d ~/git/sfodemo/README.md ]; then
-        echo "### Mounting the unmounted NFSDirs"
-        ~/bin/nfs0start
-fi
