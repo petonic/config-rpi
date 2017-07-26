@@ -28,7 +28,7 @@ lsr () {
 
 alias ls='ls -CF --color=auto'
 
-if [ ! -d ~/git/sfodemo/README.md ]; then
-        echo "### Mounting the unmounted NFSDirs"
-        ~/bin/nfs0start
-fi
+# if [ ! -d ~/git/sfodemo/README.md ]; then
+#         echo "### Mounting the unmounted NFSDirs"
+#         ~/bin/nfs0start
+# fi
