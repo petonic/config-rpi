@@ -11,6 +11,8 @@ alias mw="mate -w"
 alias mq="mate -f"
 
 alias sm='/usr/bin/sudo -E "$HOME/bin/rmate" --no-wait'
+alias sl='sudo less'
+alias sz='sudo zsh'
 
 # lsr() { ls -lt "$@" | head ; }
 lsr () {
