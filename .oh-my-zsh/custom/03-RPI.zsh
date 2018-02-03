@@ -14,6 +14,15 @@ alias sm='/usr/bin/sudo -E "$HOME/bin/rmate" --no-wait'
 alias sl='sudo less'
 alias sz='sudo zsh'
 
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+
+
 # lsr() { ls -lt "$@" | head ; }
 lsr () {
     headflag=-10
