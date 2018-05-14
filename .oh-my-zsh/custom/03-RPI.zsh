@@ -43,3 +43,7 @@ alias ls='ls -CF --color=auto'
 #         echo "### Mounting the unmounted NFSDirs"
 #         ~/bin/nfs0start
 # fi
+
+VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
+source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/.virtualenvs
