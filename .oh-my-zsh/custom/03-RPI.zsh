@@ -1,4 +1,4 @@
- #
+#
 # RPI-specific .zshrc
 #
 export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:"
@@ -14,6 +14,15 @@ alias sl='sudo less'
 alias sz='sudo zsh'
 alias sysc='sudo systemctl'
 alias sc='sudo supervisorctl'
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+
 
 # lsr() { ls -lt "$@" | head ; }
 lsr () {
