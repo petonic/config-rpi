@@ -1,18 +1,19 @@
-#
+ #
 # RPI-specific .zshrc
 #
 export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:"
 export PATH="$PATH:/sbin:/bin:/usr/bin:."
 
 alias mate='rmate -H localhost'
-alias m=mate
-alias m="mate -f"
-alias mw="mate -w"
-alias mq="mate -f"
+alias m="mate -w -f"                # Default, wait for response
+alias mw="mate -w -f"               # Default, wait for response
+alias ml="mate -f"                  # Long running, i.e., don't wait
 
 alias sm='/usr/bin/sudo -E "$HOME/bin/rmate" --no-wait'
 alias sl='sudo less'
 alias sz='sudo zsh'
+alias sysc='sudo systemctl'
+alias sc='sudo supervisorctl'
 
 # lsr() { ls -lt "$@" | head ; }
 lsr () {
@@ -34,3 +35,23 @@ alias ls='ls -CF --color=auto'
 #         echo "### Mounting the unmounted NFSDirs"
 #         ~/bin/nfs0start
 # fi
+
+#
+# Aliases for DU sorted by size
+function duf {
+  du -k "$@" | sort -n | while read size fname; do
+    for unit in k M G T P E Z Y; do
+      if [ $size -lt 1024 ]; then
+        printf "%6d%s\t%s\\n" "${size}" "${unit}" "${fname}"
+        # echo
+        # echo -e "${size}${unit}t${fname}";
+        break;
+      fi;
+      size=$((size/1024));
+    done;
+  done
+}
+
+alias du1='duf --max-depth=1'
+alias du2='duf --max-depth=2'
+alias du0='duf --max-depth=0'
